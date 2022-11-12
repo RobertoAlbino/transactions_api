@@ -36,12 +36,16 @@ public class CreateTransactionValidator {
             throw new BusinessException("O valor da transação não pode ser zero");
         }
         if (OperationTypeEnum.isDebitOperation(operation)) {
-            var isNegative = compareBigDecimalToZero(transaction.getAmount(), -1);
-            Assert.isTrue(isNegative, "O valor debitado precisa ser negativo");
+            var positive = compareBigDecimalToZero(transaction.getAmount(), 1);
+            if (positive) {
+                throw new BusinessException("O valor debitado precisa ser negativo para esse tipo de operação");
+            }
         }
         if (OperationTypeEnum.isCreditOperation(operation)) {
-            var isPositive = compareBigDecimalToZero(transaction.getAmount(), 1);
-            Assert.isTrue(isPositive, "O valor creditado precisa ser positivo");
+            var negative = compareBigDecimalToZero(transaction.getAmount(), -1);
+            if (negative) {
+                throw new BusinessException("O valor creditado precisa ser positivo para esse tipo de operação");
+            }
         }
     }
 
