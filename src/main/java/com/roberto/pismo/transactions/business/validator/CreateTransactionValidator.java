@@ -7,7 +7,6 @@ import com.roberto.pismo.transactions.persistence.OperationTypePersistence;
 import com.roberto.pismo.transactions.utils.FieldValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 
