@@ -24,7 +24,7 @@ public class AccountClient {
             return accountFeign.getAccount(accountId)
                     .orElseThrow(() -> new BusinessException("A conta não foi encontrada"));
         } catch (FeignException feignException) {
-            throw new IntegrationException(feignException.status(), feignException.getMessage());
+            throw new IntegrationException(feignException.status(), feignException.contentUTF8());
         }
     }
 }

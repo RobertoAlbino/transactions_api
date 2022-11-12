@@ -8,7 +8,7 @@ import lombok.Data;
 @Builder
 public class ExceptionResponse {
 
-    @JsonProperty("error_message")
+    @JsonProperty("transactions_api_error_message")
     private String errorMessage;
 
 }
