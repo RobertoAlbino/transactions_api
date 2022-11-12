@@ -16,5 +16,4 @@ public class OperationTypePersistence {
                     new BusinessException("Tipo de operação não encontrada"));
     }
 
-
 }

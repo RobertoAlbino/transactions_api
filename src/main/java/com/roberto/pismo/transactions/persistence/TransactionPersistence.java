@@ -15,7 +15,6 @@ public class TransactionPersistence {
     public TransactionModel create(TransactionModel transaction) {
         var entity = TransactionPersistenceMapper.toEntity(transaction);
         var saved = repository.save(entity);
-        var model = TransactionPersistenceMapper.toModel(saved);
-        return model;
+        return TransactionPersistenceMapper.toModel(saved);
     }
 }
