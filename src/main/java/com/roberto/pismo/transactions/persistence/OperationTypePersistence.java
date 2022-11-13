@@ -9,11 +9,13 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class OperationTypePersistence {
 
+    public final static String OPERATION_NOT_FOUND = "Tipo de operação não encontrada";
+
     private final OperationTypeRepository repository;
 
     public void exists(Integer operationTypeID) {
         repository.findById(operationTypeID).orElseThrow(() ->
-                    new BusinessException("Tipo de operação não encontrada"));
+                    new BusinessException(OPERATION_NOT_FOUND));
     }
 
 }

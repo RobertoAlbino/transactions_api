@@ -1,7 +1,6 @@
 package com.roberto.pismo.transactions.integration.clients;
 
 import com.roberto.pismo.transactions.exceptions.BusinessException;
-import com.roberto.pismo.transactions.exceptions.IntegrationException;
 import com.roberto.pismo.transactions.integration.clients.dto.AccountDto;
 import com.roberto.pismo.transactions.integration.clients.feign.AccountFeign;
 import feign.FeignException;
@@ -14,17 +13,16 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class AccountClient {
 
+    public final String ACCOUNT_ID_NULL = "O identificador da conta não pode ser nulo";
+    public final String ACCOUNT_NOT_FOUND = "A conta não foi encontrada";
+
     private final AccountFeign accountFeign;
 
     public AccountDto getAccount(Long accountId) {
         if (Objects.isNull(accountId)) {
-            throw new BusinessException("O identificador da conta não pode ser nulo");
+            throw new BusinessException(ACCOUNT_ID_NULL);
         }
-        try {
-            return accountFeign.getAccount(accountId)
-                    .orElseThrow(() -> new BusinessException("A conta não foi encontrada"));
-        } catch (FeignException feignException) {
-            throw new IntegrationException(feignException.status(), feignException.contentUTF8());
-        }
+        return accountFeign.getAccount(accountId)
+                .orElseThrow(() -> new BusinessException(ACCOUNT_NOT_FOUND));
     }
 }
