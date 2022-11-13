@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       DATASOURCE_URL: ${DATASOURCE_URL}
     ports:
-      - "8080:8080"
+      - "8082:8082"
     networks:
       - pismo-network
     restart: unless-stopped

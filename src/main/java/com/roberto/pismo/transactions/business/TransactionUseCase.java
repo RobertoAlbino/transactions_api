@@ -7,6 +7,7 @@ import com.roberto.pismo.transactions.business.model.TransactionModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 @Component
@@ -19,6 +20,7 @@ public class TransactionUseCase {
 
     public TransactionModel create(TransactionModel transaction) {
         transaction.setEventDate(LocalDateTime.now());
+        transaction.setAmount(transaction.getAmount().setScale(2, RoundingMode.HALF_EVEN));
         createTransactionValidator.validateCreate(transaction);
         accountClient.getAccount(transaction.getAccountID());
         return transactionPersistence.create(transaction);
