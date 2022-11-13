@@ -9,4 +9,3 @@ COPY . /transactions-api
 WORKDIR transactions-api
 RUN mvn -T 4 clean install
 ENTRYPOINT ["java", "-jar","target/transactions-1.0.0.jar"]
-EXPOSE 8080
