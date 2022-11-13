@@ -19,13 +19,15 @@ public enum OperationTypeEnum {
         this.description = description;
     }
 
+    public static final String TYPE_OPERATION_NOT_FOUND = "O tipo da operação não foi encontrado";
+
     public static OperationTypeEnum find(int operationTypeID){
         for(OperationTypeEnum operation : values()){
             if(operation.operationTypeID.equals(operationTypeID)){
                 return operation;
             }
         }
-        throw new BusinessException("O tipo da operação não foi encontrado");
+        throw new BusinessException(TYPE_OPERATION_NOT_FOUND);
     }
 
     public static boolean isDebitOperation(OperationTypeEnum operation) {

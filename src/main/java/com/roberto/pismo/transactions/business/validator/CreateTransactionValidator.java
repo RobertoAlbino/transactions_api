@@ -14,6 +14,10 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 public class CreateTransactionValidator {
 
+    public final String NOT_ALLOWED_ZERO = "O valor da transação não pode ser zero";
+    public final String DEBIT_VALUE_NEED_BE_NEGATIVE = "O valor debitado precisa ser negativo para esse tipo de operação";
+    public final String CREDIT_VALUE_NEED_BE_POSITIVE = "O valor creditado precisa ser positivo para esse tipo de operação";
+
     private final OperationTypePersistence operationTypePersistence;
 
     private void validateFields(TransactionModel transaction) {
@@ -32,18 +36,18 @@ public class CreateTransactionValidator {
         var operation = OperationTypeEnum.find(transaction.getOperationTypeID());
         var amountIsZero = compareBigDecimalToZero(transaction.getAmount(), 0);
         if (amountIsZero) {
-            throw new BusinessException("O valor da transação não pode ser zero");
+            throw new BusinessException(NOT_ALLOWED_ZERO);
         }
         if (OperationTypeEnum.isDebitOperation(operation)) {
             var positive = compareBigDecimalToZero(transaction.getAmount(), 1);
             if (positive) {
-                throw new BusinessException("O valor debitado precisa ser negativo para esse tipo de operação");
+                throw new BusinessException(DEBIT_VALUE_NEED_BE_NEGATIVE);
             }
         }
         if (OperationTypeEnum.isCreditOperation(operation)) {
             var negative = compareBigDecimalToZero(transaction.getAmount(), -1);
             if (negative) {
-                throw new BusinessException("O valor creditado precisa ser positivo para esse tipo de operação");
+                throw new BusinessException(CREDIT_VALUE_NEED_BE_POSITIVE);
             }
         }
     }

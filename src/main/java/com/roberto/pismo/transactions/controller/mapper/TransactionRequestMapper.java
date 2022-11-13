@@ -8,9 +8,9 @@ public class TransactionRequestMapper {
     public static TransactionModel toModel(TransactionRequest request) {
         return TransactionModel
                 .builder()
-                .accountID(request.getAccountID())
-                .operationTypeID(request.getOperationTypeID())
-                .amount(request.getAmount())
+                    .accountID(request.getAccountID())
+                    .operationTypeID(request.getOperationTypeID())
+                    .amount(request.getAmount())
                 .build();
     }
 }
