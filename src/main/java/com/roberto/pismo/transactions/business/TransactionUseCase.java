@@ -20,8 +20,8 @@ public class TransactionUseCase {
 
     public TransactionModel create(TransactionModel transaction) {
         transaction.setEventDate(LocalDateTime.now());
-        transaction.setAmount(transaction.getAmount().setScale(2, RoundingMode.HALF_EVEN));
         createTransactionValidator.validateCreate(transaction);
+        transaction.setAmount(transaction.getAmount().setScale(2, RoundingMode.HALF_EVEN));
         accountClient.getAccount(transaction.getAccountID());
         return transactionPersistence.create(transaction);
     }
